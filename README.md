@@ -5,16 +5,16 @@ Exemplo de implementação de um service registry + proxy.
 ## registry
 
 * Contém uma base de dados para registrar os serviços remotos.
-* Contém um proxy para redirecionar as chamadas para os serviços concretos (hu-assembly e shipment-injection)
+* Contém um proxy para redirecionar as chamadas para os serviços concretos (first-process e second-process)
 
-## hu-assembly
+## first-process
 
-* Backlog para manipular o processo "hu-assembly".
+* Simula um processo qualquer.
 * No start-up, esse serviço se registra em "registry".
 
-## shipment-injection
+## second-process
 
-* Backlog para manipular o processo "shipment-injection".
+* Simula um outro processo qualquer.
 * No start-up, esse serviço se registra em "registry".
 
 ## Execução
@@ -24,39 +24,33 @@ Exemplo de implementação de um service registry + proxy.
     go run cmd/main.go
    ```
 2) ```
-    cd hu-assembly
+    cd first-process
     go run cmd/main.go
    ```
 3) ```
-    cd shipment-injection
+    cd second-process
     go run cmd/main.go
    ```
 ______________
 
-As chamadas devem ser direcionadas a "registry". Idealmente hu-assembly e shipment-injection ficam "escondidas".
+As chamadas devem ser direcionadas a "registry". Idealmente first-process e second-process ficam "escondidas".
 
 ```
 curl --location --request POST 'http://localhost:8080/commands' \
---header 'x-process-name: shipment-injection' \
+--header 'x-process-name: first-process' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "type": "create",
-    "target": {
-        "type": "target",
-        "id": "id"
-    }
+    "id": "123",
+    "process": "xpto"
 }'
 ```
 
 ```
 curl --location --request POST 'http://localhost:8080/commands' \
---header 'x-process-name: hu-assembly' \
+--header 'x-process-name: second-process' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "type": "create",
-    "target": {
-        "type": "target",
-        "id": "id"
-    }
+    "id": "321",
+    "process": "xpto2"
 }'
 ```

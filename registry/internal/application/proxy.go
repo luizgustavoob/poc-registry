@@ -15,7 +15,7 @@ func proxy(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 	remoteService := ctx.Value(consts.RemoteServiceKey).(entities.RemoteService)
 
-	log.Printf("calling concrete address of process %s. (%s)", remoteService.ProcessName, remoteService.FinalAddress)
+	log.Printf("calling concrete address of process %s. (%s)", remoteService.ProcessName, remoteService.Address)
 
 	url, _ := url.Parse(fmt.Sprintf("%s%s", remoteService.Address, r.URL.Path))
 

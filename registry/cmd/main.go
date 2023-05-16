@@ -13,7 +13,7 @@ import (
 )
 
 func main() {
-	db := database.NewInMemoryDatabase()
+	db := database.InMemory()
 
 	app := application.BuildApp(db)
 	routes := application.BuildRoutes(app)

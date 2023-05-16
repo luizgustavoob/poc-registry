@@ -45,7 +45,6 @@ func (a *App) HandleAddService(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	addr.FormatFinalAddress()
 	err = a.AddService(addr)
 	if err != nil {
 		internalHandleError(w, err, http.StatusInternalServerError)

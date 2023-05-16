@@ -6,8 +6,8 @@ type (
 		Address     string `json:"address"`
 	}
 
-	Order struct {
-		ID      string `json:"id,omitempty"`
-		Process string `json:"process,omitempty"`
+	Create struct {
+		ID      string `json:"id"`
+		Process string `json:"process"`
 	}
 )

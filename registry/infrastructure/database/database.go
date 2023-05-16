@@ -11,7 +11,7 @@ type InMemoryDatabase struct {
 	services map[string]entities.RemoteService
 }
 
-func NewInMemoryDatabase() *InMemoryDatabase {
+func InMemory() *InMemoryDatabase {
 	return &InMemoryDatabase{
 		services: make(map[string]entities.RemoteService),
 	}

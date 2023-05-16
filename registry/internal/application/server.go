@@ -24,24 +24,24 @@ func NewServer(r http.Handler) *Server {
 
 func (s *Server) ListenAndServe() {
 	go func() {
-		log.Printf("registry running on %s", s.server.Addr)
+		log.Printf("registry service running on %s", s.server.Addr)
 		if err := s.server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-			log.Printf("error starting registry: %q", err)
+			log.Printf("error starting registry service: %q", err)
 		}
 	}()
 }
 
 func (s *Server) Shutdown() {
-	log.Print("shutting down registry")
+	log.Print("shutting down registry service...")
 
 	ctx, cancel := context.WithTimeout(context.Background(), 60*time.Second)
 	defer cancel()
 
 	err := s.server.Shutdown(ctx)
 	if err != nil && err != http.ErrServerClosed {
-		log.Printf("unable to shutdown the registry in 60s: %q", err)
+		log.Printf("unable to shutdown the registry service in 60s: %q", err)
 		return
 	}
 
-	log.Print("registry gracefully stopped")
+	log.Print("registry service gracefully stopped")
 }
